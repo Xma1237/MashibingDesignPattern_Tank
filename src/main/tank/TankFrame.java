@@ -28,8 +28,8 @@ public class TankFrame extends Frame {
     @Override   //paint相当于画笔,画出坐标x,y开始- 长宽50,50的rectangle
     public void paint(Graphics g) { //会自动调用
         g.fillRect(x, y, 50, 50);
-        x += 10;
-        y += 10;
+//        x += 10;
+//        y += 10;
     }
 
 
@@ -37,7 +37,9 @@ public class TankFrame extends Frame {
     class MyKeyListener extends KeyAdapter {
         @Override//effective when press key
         public void keyPressed(KeyEvent e) {
-            System.out.println("press");
+            x += 10;    //tank move 10 pixel
+//            repaint();  invoke method paint and show the movement
+
         }
 
         @Override//effective when release key
