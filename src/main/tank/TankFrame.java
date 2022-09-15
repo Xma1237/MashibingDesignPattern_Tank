@@ -7,6 +7,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class TankFrame extends Frame {
+    Tank myTank = new Tank(200, 200, Dir.DOWN);
+
+    Bullet myBullet = new Bullet(300,300, Dir.DOWN);
     public TankFrame() {
         setSize(800, 600);
         setResizable(false);
@@ -29,11 +32,11 @@ public class TankFrame extends Frame {
     Dir dir = Dir.DOWN;
     private static final int SPEED = 10;   //tank moving speed
     */
-    Tank myTank = new Tank(200, 200, Dir.DOWN);
 
     @Override   //paint相当于画笔,画出坐标x,y开始- 长宽50,50的rectangle
     public void paint(Graphics g) { //会自动调用
         myTank.paint(g);
+        myBullet.paint(g);
     }
 
     class MyKeyListener extends KeyAdapter {

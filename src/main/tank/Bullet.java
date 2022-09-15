@@ -2,42 +2,28 @@ package tank;
 
 import java.awt.*;
 
-public class Tank {
+public class Bullet {
+    private static final int SPEED = 15;
+    private static final int WIDTH = 10, HEIGHT = 10;
     private int x, y;
-    private Dir dir = Dir.DOWN;
-    private static final int SPEED = 5;
+    private Dir dir;
 
-    //when the tank is not moving
-    private boolean moving = false;
-
-    public Tank(int x, int y, Dir dir) {
+    public Bullet(int x, int y, Dir dir) {
         this.x = x;
         this.y = y;
         this.dir = dir;
     }
 
-    public Dir getDir() {
-        return dir;
-    }
-
-    public void setDir(Dir dir) {
-        this.dir = dir;
-    }
-
-    public void setMoving(boolean moving) {
-        this.moving = moving;
-    }
-
     public void paint(Graphics g) {
-        g.fillRect(x, y, 50, 50);
-//        x += 10;
-//        y += 10;
+        Color c = g.getColor();
+        g.setColor(Color.RED);
+        g.fillOval(x, y, WIDTH, HEIGHT);
+        g.setColor(c);
+
         move();
     }
 
     private void move() {
-        if(!moving) return;
-
         switch (dir) {
             case LEFT:
                 x -= SPEED;
@@ -53,4 +39,5 @@ public class Tank {
                 break;
         }
     }
+
 }
