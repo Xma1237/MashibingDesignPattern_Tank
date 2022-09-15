@@ -23,32 +23,17 @@ public class TankFrame extends Frame {
         });
     }
 
+    /*class Tank will take over this part
     //you need variables to make tank move the position
     int x = 200, y = 200;
     Dir dir = Dir.DOWN;
     private static final int SPEED = 10;   //tank moving speed
-
+    */
+    Tank myTank = new Tank(200, 200, Dir.DOWN);
 
     @Override   //paint相当于画笔,画出坐标x,y开始- 长宽50,50的rectangle
     public void paint(Graphics g) { //会自动调用
-        g.fillRect(x, y, 50, 50);
-//        x += 10;
-//        y += 10;
-
-        switch (dir) {
-            case LEFT:
-                x -= SPEED;
-                break;
-            case RIGHT:
-                x += SPEED;
-                break;
-            case UP:
-                y -= SPEED;
-                break;
-            case DOWN:
-                y += SPEED;
-                break;
-        }
+        myTank.paint(g);
     }
 
     class MyKeyListener extends KeyAdapter {
@@ -88,15 +73,19 @@ public class TankFrame extends Frame {
             int keyCode = e.getKeyCode();
             switch (keyCode) {
                 case KeyEvent.VK_LEFT:
+                    System.out.println("Left");
                     bL = true;
                     break;
                 case KeyEvent.VK_RIGHT:
+                    System.out.println("Right");
                     bR = true;
                     break;
                 case KeyEvent.VK_UP:
+                    System.out.println("Up");
                     bU = true;
                     break;
                 case KeyEvent.VK_DOWN:
+                    System.out.println("Down");
                     bD = true;
                     break;
                 default:
@@ -108,7 +97,6 @@ public class TankFrame extends Frame {
         //effective when release key, set boolean back to false
         @Override
         public void keyReleased(KeyEvent e) {
-            System.out.println("release");
             int keyCode = e.getKeyCode();
             switch (keyCode) {
                 case KeyEvent.VK_LEFT:
@@ -130,10 +118,10 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
-            if (bL) dir = Dir.LEFT;
-            if (bR) dir = Dir.RIGHT;
-            if (bU) dir = Dir.UP;
-            if (bD) dir = Dir.DOWN;
+            if (bL) myTank.setDir(Dir.LEFT);
+            if (bR) myTank.setDir(Dir.RIGHT);
+            if (bU) myTank.setDir(Dir.UP);
+            if (bD) myTank.setDir(Dir.DOWN);
         }
     }
 }
