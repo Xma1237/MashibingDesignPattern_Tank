@@ -7,11 +7,12 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class TankFrame extends Frame {
-    Tank myTank = new Tank(200, 200, Dir.DOWN);
+    Tank myTank = new Tank(200, 200, Dir.DOWN, this);
+    Bullet Bullet = new Bullet(300, 300, Dir.DOWN);
+    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
-    Bullet myBullet = new Bullet(300,300, Dir.DOWN);
     public TankFrame() {
-        setSize(800, 600);
+        setSize(GAME_WIDTH, GAME_HEIGHT);
         setResizable(false);
         setTitle("Tank War");
         setVisible(true);
@@ -32,12 +33,6 @@ public class TankFrame extends Frame {
     Dir dir = Dir.DOWN;
     private static final int SPEED = 10;   //tank moving speed
     */
-
-    @Override   //paint相当于画笔,画出坐标x,y开始- 长宽50,50的rectangle
-    public void paint(Graphics g) { //会自动调用
-        myTank.paint(g);
-        myBullet.paint(g);
-    }
 
     class MyKeyListener extends KeyAdapter {
         //set boolean false to left,right,up,down
@@ -114,6 +109,9 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_DOWN:
                     bD = false;
                     break;
+                case KeyEvent.VK_CONTROL:
+                    myTank.fire();
+                    break;
                 default:
                     break;
             }
@@ -134,4 +132,27 @@ public class TankFrame extends Frame {
             }
         }
     }
+
+    //double buffering to reduce the refreshing issue
+    Image offScreenImage = null;
+    @Override
+    public void update(Graphics g) {
+        if (offScreenImage == null) {
+            offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
+        }
+        Graphics gOffScreen = offScreenImage.getGraphics();
+        Color c = gOffScreen.getColor();
+        gOffScreen.setColor(Color.BLACK);
+        gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        gOffScreen.setColor(c);
+        paint(gOffScreen);
+        g.drawImage(offScreenImage, 0, 0, null);
+    }
+
+    @Override   //paint相当于画笔,画出坐标x,y开始- 长宽50,50的rectangle
+    public void paint(Graphics g) { //会自动调用
+        myTank.paint(g);
+        Bullet.paint(g);
+    }
+
 }

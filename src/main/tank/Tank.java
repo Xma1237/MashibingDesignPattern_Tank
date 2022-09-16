@@ -6,14 +6,18 @@ public class Tank {
     private int x, y;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 5;
+    //need this TankFrame reference, so the tank can put
+    //a bullet object into the TankFrame
+    private TankFrame tf = null;
 
     //when the tank is not moving
     private boolean moving = false;
 
-    public Tank(int x, int y, Dir dir) {
+    public Tank(int x, int y, Dir dir, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tf = tf;
     }
 
     public Dir getDir() {
@@ -28,8 +32,12 @@ public class Tank {
         this.moving = moving;
     }
 
+    // method to draw the tank
     public void paint(Graphics g) {
+        Color c = g.getColor();
+        g.setColor(Color.GREEN);
         g.fillRect(x, y, 50, 50);
+        g.setColor(c);
 //        x += 10;
 //        y += 10;
         move();
@@ -52,5 +60,10 @@ public class Tank {
                 y += SPEED;
                 break;
         }
+    }
+
+    //fire bullet method
+    public void fire() {
+        tf.Bullet = new Bullet(this.x, this.y, this.dir);
     }
 }

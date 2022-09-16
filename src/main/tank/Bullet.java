@@ -4,13 +4,13 @@ import java.awt.*;
 
 public class Bullet {
     private static final int SPEED = 15;
-    private static final int WIDTH = 10, HEIGHT = 10;
+    private static final int WIDTH = 15, HEIGHT = 15;
     private int x, y;
     private Dir dir;
 
     public Bullet(int x, int y, Dir dir) {
-        this.x = x;
-        this.y = y;
+        this.x = x+15;
+        this.y = y+15;
         this.dir = dir;
     }
 
