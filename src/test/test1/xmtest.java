@@ -15,6 +15,9 @@ public class xmtest{
         try {
             BufferedImage image = ImageIO.read(new File("D:/rescourse/tank.jpg"));
             assertNotNull(image);//断言
+
+            BufferedImage image2 = ImageIO.read(xmtest.class.getClassLoader().getResourceAsStream("images/tankL.jpg"));
+            assertNotNull(image2);
         }
         catch (IOException e){
             e.printStackTrace();

@@ -140,7 +140,7 @@ public class TankFrame extends Frame {
     //double buffering to reduce the refreshing issue
     Image offScreenImage = null;
 
-    @Override
+    @Override//double buffering to reduce the refreshing issue
     public void update(Graphics g) {
         if (offScreenImage == null) {
             offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
