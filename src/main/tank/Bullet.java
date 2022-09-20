@@ -7,14 +7,21 @@ public class Bullet {
     private static final int WIDTH = 15, HEIGHT = 15;
     private int x, y;
     private Dir dir;
+    private boolean live = true;
+    TankFrame tf = null;
 
-    public Bullet(int x, int y, Dir dir) {
-        this.x = x+15;
-        this.y = y+15;
+    public Bullet(int x, int y, Dir dir, TankFrame tf) {
+        this.x = x + 15;
+        this.y = y + 15;
         this.dir = dir;
+        this.tf = tf;
     }
 
     public void paint(Graphics g) {
+        if (!live) {
+            tf.bullets.remove(this);
+        }
+
         Color c = g.getColor();
         g.setColor(Color.RED);
         g.fillOval(x, y, WIDTH, HEIGHT);
@@ -38,6 +45,10 @@ public class Bullet {
                 y += SPEED;
                 break;
         }
+
+        //if bullet is out of border, change live to false for delete
+        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) live = false;
+
     }
 
 }

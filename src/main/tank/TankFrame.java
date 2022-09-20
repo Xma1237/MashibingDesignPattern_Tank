@@ -5,11 +5,15 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TankFrame extends Frame {
     Tank myTank = new Tank(200, 200, Dir.DOWN, this);
-    Bullet Bullet = new Bullet(300, 300, Dir.DOWN);
+    //    Bullet Bullet = new Bullet(300, 300, Dir.DOWN);
     static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+    List<Bullet> bullets = new ArrayList<>();   //for Tank method- fire()
+
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -135,6 +139,7 @@ public class TankFrame extends Frame {
 
     //double buffering to reduce the refreshing issue
     Image offScreenImage = null;
+
     @Override
     public void update(Graphics g) {
         if (offScreenImage == null) {
@@ -151,8 +156,15 @@ public class TankFrame extends Frame {
 
     @Override   //paint相当于画笔,画出坐标x,y开始- 长宽50,50的rectangle
     public void paint(Graphics g) { //会自动调用
+        Color c = g.getColor();
+        g.setColor(Color.white);
+        g.drawString("# of Bullets:" + bullets.size(), 10, 60);
+        g.setColor(c);
+
         myTank.paint(g);
-        Bullet.paint(g);
+        for (int i = 0; i < bullets.size(); i++) {
+            bullets.get(i).paint(g);
+        }
     }
 
 }
