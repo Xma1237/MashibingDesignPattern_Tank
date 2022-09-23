@@ -1,6 +1,7 @@
 package tank;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Tank {
     private int x, y;
@@ -9,6 +10,8 @@ public class Tank {
     public static final int WIDTH = ResourceManager.tankD.getWidth();
     public static final int HEIGHT = ResourceManager.tankD.getHeight();
     private boolean living = true;
+    private TankTeam team = TankTeam.BAD;//used for separate teams
+    private Random random = new Random();//used for enemy tank's moving direction
 
     //need this TankFrame reference, so the tank can put
     //a bullet object into the TankFrame
@@ -17,10 +20,11 @@ public class Tank {
     //when the tank is not moving
     private boolean moving = false;
 
-    public Tank(int x, int y, Dir dir, TankFrame tf) {
+    public Tank(int x, int y, Dir dir, TankTeam team, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.team = team;
         this.tf = tf;
     }
 
@@ -48,6 +52,14 @@ public class Tank {
         this.y = y;
     }
 
+    public TankTeam getTeam() {
+        return team;
+    }
+
+    public void setTeam(TankTeam team) {
+        this.team = team;
+    }
+
     public void setMoving(boolean moving) {
         this.moving = moving;
     }
@@ -59,11 +71,11 @@ public class Tank {
         g.fillRect(x, y, 50, 50);
         g.setColor(c); */
 
-        if(!living){//check living
+        if (!living) {//check living
             this.tf.enemyTank.remove(this);
         }
 
-        switch (dir){//draw the tank according to tank's dir
+        switch (dir) {//draw the tank according to tank's dir
             case LEFT:
                 g.drawImage(ResourceManager.tankL, x, y, null);
                 break;
@@ -100,9 +112,10 @@ public class Tank {
         }
     }
 
+
     //fire bullet method
     public void fire() {
-        tf.bullets.add(new Bullet(this.x + 11, this.y + 11, this.dir, tf));
+        tf.bullets.add(new Bullet(this.x + 11, this.y + 11, this.dir, this.team, tf));
     }
 
     public void die() {

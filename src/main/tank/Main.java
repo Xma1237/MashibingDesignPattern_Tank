@@ -6,7 +6,7 @@ public class Main {
 
         //initialization of enemy tanks
         for (int i = 0; i < 5; i++) {
-            tf.enemyTank.add(new Tank(50 + i * 80, 200, Dir.DOWN, tf));
+            tf.enemyTank.add(new Tank(50 + i * 80, 200, Dir.DOWN, TankTeam.BAD, tf));
         }
 
         //refresh the screen to show movement

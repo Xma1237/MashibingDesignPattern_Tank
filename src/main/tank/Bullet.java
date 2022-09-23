@@ -8,13 +8,23 @@ public class Bullet {
     private int x, y;
     private Dir dir;
     private boolean living = true;
+    private TankTeam team = TankTeam.BAD;
     TankFrame tf = null;
 
-    public Bullet(int x, int y, Dir dir, TankFrame tf) {
+    public Bullet(int x, int y, Dir dir, TankTeam team, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.team = team;
         this.tf = tf;
+    }
+
+    public TankTeam getTeam() {
+        return team;
+    }
+
+    public void setTeam(TankTeam team) {
+        this.team = team;
     }
 
     public void paint(Graphics g) {
@@ -26,7 +36,7 @@ public class Bullet {
         g.setColor(Color.RED);
         g.fillOval(x, y, WIDTH, HEIGHT);
         g.setColor(c); */
-        switch (dir){
+        switch (dir) {
             case LEFT:
                 g.drawImage(ResourceManager.bulletL, x, y, null);
                 break;
@@ -66,9 +76,10 @@ public class Bullet {
     }
 
     public void collideWith(Tank tank) {//this method is to check if bullet hit tank
+        if (tank.getTeam() == this.getTeam()) return;//check the team of bullets
         Rectangle rect1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
         Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), tank.WIDTH, tank.HEIGHT);
-        if(rect1.intersects(rect2)){
+        if (rect1.intersects(rect2)) {
             tank.die();
             this.die();
         }
