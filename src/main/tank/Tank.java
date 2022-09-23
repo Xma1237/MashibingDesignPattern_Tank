@@ -6,6 +6,10 @@ public class Tank {
     private int x, y;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 5;
+    public static final int WIDTH = ResourceManager.tankD.getWidth();
+    public static final int HEIGHT = ResourceManager.tankD.getHeight();
+    private boolean living = true;
+
     //need this TankFrame reference, so the tank can put
     //a bullet object into the TankFrame
     private TankFrame tf = null;
@@ -28,6 +32,22 @@ public class Tank {
         this.dir = dir;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public void setMoving(boolean moving) {
         this.moving = moving;
     }
@@ -38,6 +58,10 @@ public class Tank {
         g.setColor(Color.GREEN);
         g.fillRect(x, y, 50, 50);
         g.setColor(c); */
+
+        if(!living){//check living
+            this.tf.enemyTank.remove(this);
+        }
 
         switch (dir){//draw the tank according to tank's dir
             case LEFT:
@@ -78,6 +102,10 @@ public class Tank {
 
     //fire bullet method
     public void fire() {
-        tf.bullets.add(new Bullet(this.x, this.y, this.dir, tf));
+        tf.bullets.add(new Bullet(this.x + 11, this.y + 11, this.dir, tf));
+    }
+
+    public void die() {
+        this.living = false;
     }
 }
