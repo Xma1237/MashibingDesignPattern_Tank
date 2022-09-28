@@ -77,8 +77,10 @@ public class Bullet {
 
     public void collideWith(Tank tank) {//this method is to check if bullet hit tank
         if (tank.getTeam() == this.getTeam()) return;//check the team of bullets
+
         Rectangle rect1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
         Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), tank.WIDTH, tank.HEIGHT);
+
         if (rect1.intersects(rect2)) {
             tank.die();
             this.die();

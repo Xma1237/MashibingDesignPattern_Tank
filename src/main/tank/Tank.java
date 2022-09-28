@@ -10,7 +10,7 @@ public class Tank {
     public static final int WIDTH = ResourceManager.tankD.getWidth();
     public static final int HEIGHT = ResourceManager.tankD.getHeight();
     private boolean living = true;
-    private TankTeam team = TankTeam.BAD;//used for separate teams
+    private TankTeam team;//used for separate teams
     private Random random = new Random();//used for enemy tank's moving direction
 
     //need this TankFrame reference, so the tank can put
