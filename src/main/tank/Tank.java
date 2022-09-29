@@ -7,8 +7,8 @@ public class Tank {
     private int x, y;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 5;
-    public static final int WIDTH = ResourceManager.tankD.getWidth();
-    public static final int HEIGHT = ResourceManager.tankD.getHeight();
+    public static final int WIDTH = ResourceManager.GOODtankD.getWidth();
+    public static final int HEIGHT = ResourceManager.GOODtankD.getHeight();
     private boolean living = true;
     private TankTeam team;//used for separate teams
     private Random random = new Random();//used for enemy tank's moving direction
@@ -70,23 +70,22 @@ public class Tank {
         g.setColor(Color.GREEN);
         g.fillRect(x, y, 50, 50);
         g.setColor(c); */
-
         if (!living) {//check living
             this.tf.enemyTank.remove(this);
         }
 
         switch (dir) {//draw the tank according to tank's dir
             case LEFT:
-                g.drawImage(ResourceManager.tankL, x, y, null);
+                g.drawImage((this.team == TankTeam.GOOD ? ResourceManager.GOODtankL : ResourceManager.BADtankL), x, y, null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceManager.tankR, x, y, null);
+                g.drawImage((this.team == TankTeam.GOOD ? ResourceManager.GOODtankR : ResourceManager.BADtankR), x, y, null);
                 break;
             case UP:
-                g.drawImage(ResourceManager.tankU, x, y, null);
+                g.drawImage((this.team == TankTeam.GOOD ? ResourceManager.GOODtankU : ResourceManager.BADtankU), x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceManager.tankD, x, y, null);
+                g.drawImage((this.team == TankTeam.GOOD ? ResourceManager.GOODtankD : ResourceManager.BADtankD), x, y, null);
                 break;
         }
 

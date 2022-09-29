@@ -85,6 +85,7 @@ public class Bullet {
             tank.die();
             this.die();
 
+            //position of explosion
             int eX = tank.getX() + Tank.WIDTH/2 -Explosion.WIDTH;
             int eY = tank.getY() + Tank.HEIGHT/2 - Explosion.HEIGHT;
 
