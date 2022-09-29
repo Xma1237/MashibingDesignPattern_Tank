@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Bullet {
     private static final int SPEED = 25;
-    private static final int WIDTH = 15, HEIGHT = 15;
+    public static final int WIDTH = 15, HEIGHT = 15;
     private int x, y;
     private Dir dir;
     private boolean living = true;
@@ -79,12 +79,16 @@ public class Bullet {
         if (tank.getTeam() == this.getTeam()) return;//check the team of bullets
 
         Rectangle rect1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
-        Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), tank.WIDTH, tank.HEIGHT);
+        Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
 
         if (rect1.intersects(rect2)) {
             tank.die();
             this.die();
-            tf.explosions.add(new Explosion(x, y, tf));//add one explosion to list in tf
+
+            int eX = tank.getX() + Tank.WIDTH/2 -Explosion.WIDTH;
+            int eY = tank.getY() + Tank.HEIGHT/2 - Explosion.HEIGHT;
+
+            tf.explosions.add(new Explosion(eX, eY, tf));//add one explosion to list in tf
         }
     }
 

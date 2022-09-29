@@ -3,8 +3,8 @@ package tank;
 import java.awt.*;
 
 public class Explosion {
-    private static int WIDTH = ResourceManager.explosions[0].getWidth();
-    private static int HEIGHT = ResourceManager.explosions[0].getHeight();
+    public static int WIDTH = ResourceManager.explosions[0].getWidth();
+    public static int HEIGHT = ResourceManager.explosions[0].getHeight();
 
     private int x, y;
 
