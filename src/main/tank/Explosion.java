@@ -8,7 +8,6 @@ public class Explosion {
 
     private int x, y;
 
-    private boolean living = true;
     TankFrame tf = null;
 
     private int step = 0; //there are three steps of the explosion
@@ -23,7 +22,7 @@ public class Explosion {
         g.drawImage(ResourceManager.explosions[step++], x, y, null);
 
         if (step >= ResourceManager.explosions.length) {
-            step = 0;
+            tf.explosions.remove(this);
         }
     }
 

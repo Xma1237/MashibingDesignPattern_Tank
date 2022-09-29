@@ -18,7 +18,7 @@ public class TankFrame extends Frame {
 
     List<Tank> enemyTank = new ArrayList<>();
 
-    Explosion e = new Explosion(100, 100 ,this);
+    List<Explosion> explosions = new ArrayList<>(); //there are more than one explosion
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -165,6 +165,7 @@ public class TankFrame extends Frame {
         g.setColor(Color.white);
         g.drawString("# of Bullets:" + bullets.size(), 10, 60);
         g.drawString("# of Enemy Tanks:" + enemyTank.size(), 10, 80);
+        g.drawString("# of Explosions:" + explosions.size(), 10, 100);
         g.setColor(c);
 
         myTank.paint(g);//draw your tank
@@ -176,13 +177,16 @@ public class TankFrame extends Frame {
             enemyTank.get(i).paint(g);
         }
 
+        for (int i = 0; i < explosions.size(); i++) {
+            explosions.get(i).paint(g);
+        }
+
+        //collision detect
         for (int i = 0; i < bullets.size(); i++) {//collision
             for (int j = 0; j < enemyTank.size(); j++) {
                 bullets.get(i).collideWith(enemyTank.get(j));
             }
         }
-
-        e.paint(g);
     }
 
 }
