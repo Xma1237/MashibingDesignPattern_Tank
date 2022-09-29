@@ -118,6 +118,15 @@ public class Tank {
             randomDir();
         }
 
+        //check if tank moves out of bound
+        boundsCheck();
+    }
+
+    private void boundsCheck() {
+        if (this.x < 2) x = 0;
+        if (this.y < 28) y = 30;
+        if (this.x > TankFrame.GAME_WIDTH - Tank.WIDTH - 2) x = TankFrame.GAME_WIDTH - Tank.WIDTH - 2;
+        if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2) y = TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2;
     }
 
     private void randomDir() {
