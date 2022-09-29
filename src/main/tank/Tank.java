@@ -18,7 +18,7 @@ public class Tank {
     private TankFrame tf = null;
 
     //when the tank is not moving
-    private boolean moving = false;
+    private boolean moving = true;
 
     public Tank(int x, int y, Dir dir, TankTeam team, TankFrame tf) {
         this.x = x;
@@ -110,8 +110,20 @@ public class Tank {
                 y += SPEED;
                 break;
         }
+
+        if (this.team == TankTeam.BAD && random.nextInt(10) > 8) { //random firing
+            this.fire();
+        }
+
+        if (this.team == TankTeam.BAD && random.nextInt(100) > 95) {
+            randomDir();
+        }
+
     }
 
+    private void randomDir() {
+        this.dir = Dir.values()[random.nextInt(4)];
+    }
 
     //fire bullet method
     public void fire() {
